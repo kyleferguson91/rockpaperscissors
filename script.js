@@ -9,29 +9,37 @@ function getComputerChoice() {
     }
     else if (pick <= 6) {
         console.log("Paper")
-        return "paper"
+        return "Paper"
     }
     else {
         console.log("Scissors")
-        return "scissors"
+        return "Scissors"
     }
 
 }
 
 
 
-const playerSelection = "rock";
 
-const computerSelection = getComputerChoice();
-console.log()
+let playerSelection = prompt("Rock, paper, Scissors?").toString()
+
+
+
+
+
+
+const computerSelection = getComputerChoice()
+
+
 
 let re = new RegExp(computerSelection, "gi")
-console.log(re)
+
 
 let playwincount = 0
 let compwincount = 0
+let gamecount = 0
 
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection, getComputerChoice) {
 
     if ((!!playerSelection.match(re))) {
         console.log(`Draw! ${playerSelection} ties with ${computerSelection}`)
@@ -47,13 +55,13 @@ function playRound(playerSelection, computerSelection) {
         return `You lose! ${computerSelection} beats ${playerSelection}`
     }
 
-    else if (!!playerSelection.match(/^paper$/ig))  && !!computerSelection.match(/^scissors$/ig) {
+    else if (!!playerSelection.match(/^paper$/ig)  && !!computerSelection.match(/^scissors$/ig)) {
         compwincount++
         console.log(`You lose! ${computerSelection} beats ${playerSelection}`)
         return `You lose! ${computerSelection} beats ${playerSelection}`
     }
 
-else if (!!playerSelection.match(/^scissors$/ig))  && !!computerSelection.match(/^rock$/ig) {
+else if (!!playerSelection.match(/^scissors$/ig)  && !!computerSelection.match(/^rock$/ig)) {
 
         compwincount++
         console.log(`You lose! ${computerSelection} beats ${playerSelection}`)
@@ -61,10 +69,55 @@ else if (!!playerSelection.match(/^scissors$/ig))  && !!computerSelection.match(
     }
 
 
+    else if (!!computerSelection.match(/^rock$/ig) && !!playerSelection.match(/^paper$/ig)) {
+        playwincount++
+        console.log(`You win! ${playerSelection} beats ${computerSelection}`)
+        return `You win! ${playerSelection} beats computerSelection`
+    }
+
+    else if (!!computerSelection.match(/^paper$/ig)  && !!playerSelection.match(/^scissors$/ig)) {
+        playwincount++
+        console.log(`You win! ${playerSelection} beats ${computerSelection}`)
+        return `You win! ${playerSelection} beats ${computerSelection}`
+    }
+
+else if (!!computerSelection.match(/^scissors$/ig)  && !!playerSelection.match(/^rock$/ig)) {
+
+    playwincount++
+    console.log(`You win! ${playerSelection} beats ${computerSelection}`)
+    return `You win! ${playerSelection} beats ${computerSelection}`
+    }
+
+
+
+else {
+    console.log(`You lose! ${playerSelection} is not a valid choice`)
+    return `You lose! ${playerSelection} is not a valid choice`}
 
 }
 
 
 
 
-console.log(playRound("rock", computerSelection));
+
+
+
+
+function game () {
+gamecount = 0
+    
+    while (gamecount <= 5) {
+        playRound(prompt("Rock Paper Scissors"), getComputerChoice())
+        console.log(compwincount)
+        gamecount++
+
+    }
+
+    console.log(playwincount, compwincount)
+console.log(playwincount == compwincount ? "Draw!" : playwincount < compwincount ? "You Lose!" : "You Win!")
+    return playwincount == compwincount ? "Draw!" : playwincount < compwincount ? "You Lose!" : "You Win!"
+
+}
+
+//layRound(playerSelection, getComputerChoice)
+game()
